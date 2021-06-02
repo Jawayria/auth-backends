@@ -9,7 +9,7 @@ jobs:
   update_changelogs:
     runs-on: ubuntu-20.04
     outputs:
-      output1: ${{ steps.version.outputs.version }}
+      output1: ${{ steps.gitversion.outputs.version }}
     steps:
 
     - uses: actions/checkout@v2
@@ -30,12 +30,13 @@ jobs:
         git config --global user.name "github-actions"
 
     - name: Determine Version
-      id: version
+      id: gitversion
       run: |
+        semantic-release print-version
         echo "::set-output name=version::$(semantic-release print-version)"
 
     - name: Update Version
-      if: ${{ !contains(steps.version.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
       run: |
         semantic-release version
         echo ${{ steps.version.outputs.version }}
