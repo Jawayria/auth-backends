@@ -33,7 +33,7 @@ jobs:
       id: gitversion
       run: |
         semantic-release version
-        echo "::set-output name=version::$(semantic-release version)"
+        echo "::set-output name=version::$(echo 'semantic-release version')"
 
     - name: Update Version
       run: |
