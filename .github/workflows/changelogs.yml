@@ -31,6 +31,8 @@ jobs:
 
     - name: Update Version
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         semantic-release version
         echo "TAGGED"
