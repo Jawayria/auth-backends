@@ -39,5 +39,4 @@ jobs:
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
       run: |
         semantic-release version
-        echo "TAGGED"
-        git status
+        git push
