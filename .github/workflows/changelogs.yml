@@ -29,7 +29,6 @@ jobs:
       id: version
       run: |
         echo "::set-output name=version::$(semantic-release print-version)"
-        echo ${{ github.actor }}
 
     - name: Update Version
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
