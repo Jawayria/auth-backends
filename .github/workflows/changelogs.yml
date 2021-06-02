@@ -32,10 +32,9 @@ jobs:
     - name: Determine Version
       id: gitversion
       run: |
-        semantic-release print-version
-        echo "::set-output name=version::$(semantic-release print-version| grep No)"
+        semantic-release version
+        echo "::set-output name=version::$(semantic-release version)"
 
     - name: Update Version
       run: |
-        semantic-release version
         echo ${{ steps.gitversion.outputs.version }}
