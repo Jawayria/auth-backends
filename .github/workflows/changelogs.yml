@@ -33,10 +33,9 @@ jobs:
       id: gitversion
       run: |
         semantic-release print-version
-        echo "::set-output name=version::$(echo $(semantic-release print-version))"
+        echo "::set-output name=version::$(echo 'No release will be made')"
 
     - name: Update Version
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
       run: |
         semantic-release version
         echo ${{ steps.gitversion.outputs.version }}
