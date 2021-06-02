@@ -7,7 +7,7 @@ from auth_backends import __version__
 with open('README.rst') as a, open('HISTORY.rst') as b, open('AUTHORS') as c:
     long_description = f'{a.read()}\n\n{b.read()}\n\n{c.read()}'
 
-__version__ = '3.4.0'
+__version__ = '3.3.0'
 
 
 def load_requirements(*requirements_paths):
