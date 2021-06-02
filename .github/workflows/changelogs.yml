@@ -40,4 +40,4 @@ jobs:
       run: |
         semantic-release version
         echo "TAGGED"
-        git log --oneline
+        git status
