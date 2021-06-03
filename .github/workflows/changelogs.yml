@@ -18,15 +18,15 @@ jobs:
         python-version: '3.8'
     - name: Install package
       run: pip install python-semantic-release
+
     - name: Git setup
       run: |
         git config --global user.email "actions@github.com"
         git config --global user.name "github-actions"
+
     - name: Determine Version
       id: gitversion
-      run: |
-        semantic-release print-version
-        echo "::set-output name=version::test"
+      run: echo "::set-output name=version::test"
 
     - name: Update Version
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
