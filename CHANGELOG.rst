@@ -1,3 +1,19 @@
+Feature
+~~~~~~~
+
+-  Final check
+   (```b5c5bb4`` <https://github.com/Jawayria/auth-backends/commit/b5c5bb479ff1f675fb1dc4e37165b637a453d76c>`__)
+-  Added changelogs
+   (```b91938e`` <https://github.com/Jawayria/auth-backends/commit/b91938e4c21c4403052226dc16f7251bab0bf447>`__)
+
+Fix
+~~~
+
+-  Try using script
+   (```8d7186b`` <https://github.com/Jawayria/auth-backends/commit/8d7186bd7beaa85adee60f8d347738afec2f6259>`__)
+-  Fixed syntax error
+   (```a12c63a`` <https://github.com/Jawayria/auth-backends/commit/a12c63a8af5ed7b36229f4ac60d13aaf1d49fe24>`__)
+
 Change Log
 ==========
 
