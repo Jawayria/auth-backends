@@ -51,12 +51,6 @@ jobs:
         echo "" >> temp.rst
         cat temp.rst CHANGELOG.rst > tmp && mv tmp CHANGELOG.rst
 
-    - name: delete temp files
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
-      run: |
-        rm temp.md
-        rm temp.rst
-
     - name: Create Release
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
       id: create_release
@@ -69,6 +63,12 @@ jobs:
         body_path: temp.md
         draft: false
         prerelease: false
+
+    - name: delete temp files
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      run: |
+        rm temp.md
+        rm temp.rst
 
     - name: create pull request
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
