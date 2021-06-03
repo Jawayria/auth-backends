@@ -58,7 +58,7 @@ jobs:
         rm temp.rst
 
     - name: Create Release
-      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -75,5 +75,5 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: 'docs: Bump the Version and update Changelogs'
-        branch: update-changelogs
-        title: Upgrade the version
+        branch: ${{ steps.gitversion.outputs.version }}-update-changelogs
+        title: Upgrade the version to ${{ steps.gitversion.outputs.version }}
