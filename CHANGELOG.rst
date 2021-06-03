@@ -1,3 +1,9 @@
+Feature
+~~~~~~~
+
+-  New version
+   (```d26d026`` <https://github.com/Jawayria/auth-backends/commit/d26d02658d2974d0e6bb76cf864e25dcaaf1ea88>`__)
+
 Change Log
 ==========
 
