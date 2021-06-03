@@ -26,7 +26,7 @@ jobs:
       id: gitversion
       run: |
         semantic-release print-version
-        echo "::set-output name=version::$(echo 'No release will be made')"
+        echo "::set-output name=version::'test'"
 
     - name: Update Version
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
