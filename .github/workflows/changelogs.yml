@@ -33,3 +33,30 @@ jobs:
       run: |
         semantic-release version
         echo ${{ steps.gitversion.outputs.version }}
+
+    - name: Install pandoc
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      run: brew install pandoc
+
+    - name: Get Changelog
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      id: changelogs
+      run: |
+        semantic-release changelog >> temp.md
+        pandoc temp.md -f markdown_strict -t rst -o temp.rst
+        echo "" >> temp.rst
+        cat temp.rst CHANGELOG.rst > tmp && mv tmp CHANGELOG.rst
+
+    - name: delete temp files
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      run: |
+        rm temp.md
+        rm temp.rst
+
+    - name: create pull request
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: 'docs: Bump the Version and update Changelogs'
+        branch: update-changelogs
+        title: Upgrade the version
