@@ -28,22 +28,26 @@ jobs:
       id: gitversion
       run: echo "::set-output name=version::$(semantic-release print-version)"
 
+    - name: Get Latest Tag
+      id: latesttag
+      run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
     - name: Update Version
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       run: |
         semantic-release version
         echo ${{ steps.gitversion.outputs.version }}
 
     - name: Tag the commit
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       run: git tag ${{ steps.gitversion.outputs.version }}
 
     - name: Install pandoc
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       run: brew install pandoc
 
     - name: Get Changelog
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       id: changelogs
       run: |
         semantic-release changelog >> temp.md
@@ -52,7 +56,7 @@ jobs:
         cat temp.rst CHANGELOG.rst > tmp && mv tmp CHANGELOG.rst
 
     - name: Create Release
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       id: create_release
       uses: actions/create-release@v1
       env:
@@ -65,13 +69,13 @@ jobs:
         prerelease: false
 
     - name: delete temp files
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       run: |
         rm temp.md
         rm temp.rst
 
     - name: create pull request
-      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: 'docs: Bump the Version and update Changelogs'
