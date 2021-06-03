@@ -26,7 +26,7 @@ jobs:
 
     - name: Determine Version
       id: gitversion
-      run: echo "::set-output name=version::test"
+      run: echo "::set-output name=version::$(semantic-release print-version)"
 
     - name: Update Version
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
