@@ -34,6 +34,10 @@ jobs:
         semantic-release version
         echo ${{ steps.gitversion.outputs.version }}
 
+    - name: Tag the commit
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      run: git tag ${{ steps.gitversion.outputs.version }}
+
     - name: Install pandoc
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
       run: brew install pandoc
@@ -52,6 +56,19 @@ jobs:
       run: |
         rm temp.md
         rm temp.rst
+
+    - name: Create Release
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.gitversion.outputs.version }}
+        release_name: Release ${{ steps.gitversion.outputs.version }}
+        body_path: temp.md
+        draft: false
+        prerelease: false
 
     - name: create pull request
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
