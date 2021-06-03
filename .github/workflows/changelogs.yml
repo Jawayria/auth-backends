@@ -23,14 +23,13 @@ jobs:
         git config --global user.email "actions@github.com"
         git config --global user.name "github-actions"
     - name: Determine Version
-       id: gitversion
-       run: |
-         semantic-release print-version
-         echo "::set-output name=version::$(echo $(semantic-release print-version))"
-         echo "::set-output name=version::$(echo 'No release will be made')"
+      id: gitversion
+      run: |
+        semantic-release print-version
+        echo "::set-output name=version::$(echo 'No release will be made')"
 
-     - name: Update Version
-       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
-       run: |
-         semantic-release version
-         echo ${{ steps.gitversion.outputs.version }}
+    - name: Update Version
+      if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
+      run: |
+        semantic-release version
+        echo ${{ steps.gitversion.outputs.version }}
