@@ -33,7 +33,7 @@ jobs:
       id: gitversion
       run: |
         semantic-release print-version
-        echo "::set-output name=version::$(echo '3.6.0')"
+        echo "::set-output name=version::$(echo '123')"
 
     - name: Update Version
       if: ${{ !contains(steps.gitversion.outputs.version,'No') }}
