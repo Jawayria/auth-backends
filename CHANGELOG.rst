@@ -1,3 +1,11 @@
+[ 3.10.0 ] - 2021-06-07
+
+Feature
+~~~~~~~
+
+-  Add date and version in changelogs
+   (```1f980b8`` <https://github.com/Jawayria/auth-backends/commit/1f980b814881c1de6dbbe6d15cec5b42f1497d01>`__)
+
 Change Log
 ==========
 
