@@ -54,7 +54,7 @@ jobs:
       if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       id: changelogs
       run: |
-        echo [ ${{steps.gitversion.outputs.version}} ] - ${{steps.date.outputs.date}} >> temp.md
+        echo ## [ ${{steps.gitversion.outputs.version}} ] - ${{steps.date.outputs.date}} >> temp.md
         semantic-release changelog >> temp.md
         pandoc temp.md -f markdown_strict -t rst -o temp.rst
         echo "" >> temp.rst
