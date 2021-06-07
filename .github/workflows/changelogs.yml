@@ -55,7 +55,7 @@ jobs:
     - name: Get Changelog
       id: changelogs
       run: |
-        echo ${{ steps.latesttag.outputs.tag }}
+        echo $(date +'%Y-%m-%d')
         echo ## [ ${{steps.gitversion.outputs.version}} ] - ${{steps.date.outputs.date}} >> temp.md
         semantic-release changelog >> temp.md
         pandoc temp.md -f markdown_strict -t rst -o temp.rst
