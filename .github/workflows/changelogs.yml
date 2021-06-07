@@ -52,6 +52,7 @@ jobs:
       id: changelogs
       run: |
         echo "## [ ${{steps.gitversion.outputs.version}} ] - $(date +'%Y-%m-%d')" >> temp.md
+        semantic-release changelog >> temp.md
         pandoc temp.md -f markdown_strict -t rst -o temp.rst
         echo "" >> temp.rst
         cat temp.rst CHANGELOG.rst > tmp && mv tmp CHANGELOG.rst
