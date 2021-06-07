@@ -1,3 +1,22 @@
+[ 3.15.0 ] - 2021-06-07
+-----------------------
+
+Feature
+~~~~~~~
+
+-  Gotcha
+   (```4510594`` <https://github.com/Jawayria/auth-backends/commit/451059491c6e460fff1b3c07bcfee39badd90627>`__)
+-  Add date and version in changelogs
+   (```1f980b8`` <https://github.com/Jawayria/auth-backends/commit/1f980b814881c1de6dbbe6d15cec5b42f1497d01>`__)
+
+Fix
+~~~
+
+-  Resolve issue
+   (```14efdb1`` <https://github.com/Jawayria/auth-backends/commit/14efdb1df57d2221f2f42b9d660ebac8dd8b7439>`__)
+-  Resolve issue
+   (```e0c5584`` <https://github.com/Jawayria/auth-backends/commit/e0c5584d1b4ae9c52df7d1e81a935039c79fea27>`__)
+
 Change Log
 ==========
 
