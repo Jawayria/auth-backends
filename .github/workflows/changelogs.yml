@@ -44,7 +44,6 @@ jobs:
       run: git tag ${{ steps.gitversion.outputs.version }}
 
     - name: Install pandoc
-      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
       run: brew install pandoc
 
     - name: Get Changelog
