@@ -1,3 +1,12 @@
+[ 3.16.0 ] - 2021-06-08
+-----------------------
+
+Feature
+~~~~~~~
+
+-  Added workflow for automatic changelogs generation
+   (```8a37aee`` <https://github.com/Jawayria/auth-backends/commit/8a37aee9b1fed350091f26348f9ca66381c1f5dd>`__)
+
 Change Log
 ==========
 
