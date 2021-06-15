@@ -4,4 +4,4 @@
  projects as well.
 """
 
-__version__ = '3.20.0'  # pragma: no cover
+__version__ = '3.21.0'  # pragma: no cover
