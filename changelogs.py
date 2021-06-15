@@ -1,3 +1,4 @@
+import re
 import subprocess
 import sys
 from datetime import date
@@ -18,10 +19,17 @@ pandoc_cmd = "pandoc temp.md -f markdown_strict -t rst -o temp.rst"
 process = subprocess.Popen(pandoc_cmd.split(), stdout=subprocess.PIPE)
 output, error = process.communicate()
 
-# append the changelogs in CHANGELOG.rst
 file = open('temp.rst', 'r')
-changelogs = file.read()
+changelogs = file.read().split('\n')
 
+for line_num in range(len(changelogs)):
+    obj = re.search(r'``[a-zA-Z0-9]{7}``',  changelogs[line_num])
+    if obj:
+        changelogs[line_num] = re.sub(r'``[a-zA-Z0-9]{7}``', obj.group().split('`')[2], changelogs[line_num])
+changelogs = "\n".join(changelogs)
+
+
+# append the changelogs in CHANGELOG.rst
 for line in fileinput.FileInput("CHANGELOG.rst", inplace=1):
     if ".. <New logs>" in line:
         line = line.replace(line, line+"\n"+changelogs)
