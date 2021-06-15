@@ -16,6 +16,32 @@ Unreleased
 
 .. <New logs>
 
+[3.21.0] - 2021-06-15
+---------------------
+
+Feature
+~~~~~~~
+
+-  Testing
+   (`3b056f9 <https://github.com/Jawayria/auth-backends/commit/3b056f93aca999c3696710cb996a27f5cd6b7650>`__)
+-  Changelogs
+   (`948b7ca <https://github.com/Jawayria/auth-backends/commit/948b7ca9210a271e5f0806859c7b99406a757e72>`__)
+-  Changelogs script
+   (`d56364a <https://github.com/Jawayria/auth-backends/commit/d56364a9cdce5df821abf234ae16d0048a2c101a>`__)
+-  Added workflow for automatic changelogs generation
+   (`8a37aee <https://github.com/Jawayria/auth-backends/commit/8a37aee9b1fed350091f26348f9ca66381c1f5dd>`__)
+
+Fix
+~~~
+
+-  Hyperlinks correction
+   (`11d59a9 <https://github.com/Jawayria/auth-backends/commit/11d59a9197f5b2c978f1c059d04936d1747e31c2>`__)
+-  Place correct version
+   (`1c4dbfd <https://github.com/Jawayria/auth-backends/commit/1c4dbfd771f36db476c24b3765e42c36d1f7cf20>`__)
+-  Correctly placed new changelogs
+   (`85fba34 <https://github.com/Jawayria/auth-backends/commit/85fba34a84f7d934625152f48f4f41e724410a7c>`__)
+
+
 [3.3.3] - 2021-02-02
 --------------------
 
