@@ -1,0 +1,80 @@
+name: changelogs
+on:
+  push:
+    branches:
+      - '**'
+jobs:
+  update_changelogs:
+    runs-on: ubuntu-20.04
+    outputs:
+      output1: ${{ steps.gitversion.outputs.version }}
+      output2: ${{ steps.date.outputs.date }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install package
+      run: pip install python-semantic-release
+
+    - name: Git setup
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "github-actions"
+
+    - name: Determine Version
+      id: gitversion
+      run: echo "::set-output name=version::$(semantic-release print-version)"
+
+    - name: Get Latest Tag
+      id: latesttag
+      run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
+    - name: Update Version
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      run: |
+        semantic-release version
+        echo ${{ steps.gitversion.outputs.version }}
+
+    - name: Tag the commit
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      run: git tag ${{ steps.gitversion.outputs.version }}
+
+    - name: Install pandoc
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      run: brew install pandoc
+
+    - name: Get Changelog
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      id: changelogs
+      run: python changelogs.py ${{steps.gitversion.outputs.version}}
+
+    - name: Create Release
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.gitversion.outputs.version }}
+        release_name: Release ${{ steps.gitversion.outputs.version }}
+        body_path: temp.md
+        draft: false
+        prerelease: false
+
+    - name: delete temp files
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      run: |
+        rm temp.md
+        rm temp.rst
+
+    - name: create pull request
+      if: ${{ !contains(steps.gitversion.outputs.version,steps.latesttag.outputs.tag) }}
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: 'docs: Bump the Version and update Changelogs'
+        branch: ${{ steps.gitversion.outputs.version }}-update-changelogs
+        title: Upgrade the version to ${{ steps.gitversion.outputs.version }}
